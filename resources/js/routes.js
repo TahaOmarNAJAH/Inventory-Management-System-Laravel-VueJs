@@ -8,6 +8,8 @@ import register from './components/auth/register';
 import logout from './components/auth/logout';
 import forget from './components/auth/passwords/forget';
 
+import CreateEmployee from './components/employees/create';
+import Employees from './components/employees/index';
 
 
 Vue.use(VueRouter);
@@ -20,5 +22,7 @@ export default new VueRouter({
         { path: '/register', name: 'register', component: register },
         { path: '/logout', name: 'logout', component: logout },
         { path: '/forget', name: 'forget', component: forget },
+        { path: '/employees/index', name: 'all-employees', component: Employees },
+        { path: '/employees/create', name: 'create-employee', component: CreateEmployee },
     ]
 });

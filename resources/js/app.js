@@ -1,12 +1,16 @@
 import router from './routes';
 import User from './Helpers/User';
 import Swal from 'sweetalert2';
+import Notification from './Helpers/Notification';
 
 require('./bootstrap');
 
 window.Vue = require('vue');
 
 window.User = User;
+
+window.Notification = Notification;
+
 
 //sweet alert
 window.Swal = Swal;
