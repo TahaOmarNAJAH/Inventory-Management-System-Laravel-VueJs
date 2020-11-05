@@ -23,6 +23,10 @@ class User {
         return this.hasToken();
     }
 
+    logout() {
+        AppStorage.clear();
+    }
+
     name() {
         if (this.loggedIn()) {
             return AppStorage.getUser();

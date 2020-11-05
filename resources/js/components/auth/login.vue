@@ -13,9 +13,11 @@
                                 <form class="user" @submit.prevent="login">
                                     <div class="form-group">
                                         <input type="email" v-model="form.email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address" />
+                                        <small class="text-danger" v-if="errors.email"> {{ errors.email[0] }} </small>
                                     </div>
                                     <div class="form-group">
                                         <input type="password" v-model="form.password" class="form-control" id="exampleInputPassword" placeholder="Password" />
+                                        <small class="text-danger" v-if="errors.password"> {{ errors.password[0] }} </small>
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small" style="line-height: 1.5rem">
@@ -49,10 +51,12 @@
 <script>
 export default {
     name: "login",
-    created(){
-      if (User.loggedIn()) {
-        this.$router.push({name: 'home'})
-      }
+    created() {
+        if (User.loggedIn()) {
+            this.$router.push({
+                name: "home"
+            });
+        }
     },
     data() {
         return {
@@ -60,6 +64,7 @@ export default {
                 email: null,
                 password: null,
             },
+            errors: {}
         };
     },
     methods: {
@@ -68,12 +73,23 @@ export default {
                 .post("/api/auth/login", this.form)
                 .then((response) => {
                     User.responseAfterLogin(response);
-                    this.$router.push({ name: 'home'})
-
+                    Toast.fire({
+                        icon: "success",
+                        title: "Signed in successfully",
+                    });
+                    this.$router.push({
+                        name: "home"
+                    });
                 })
                 .catch((error) => {
-                    console.log(error.response.data);
-                });
+                    this.errors = error.response.data.errors;
+                })
+                .catch(
+                    Toast.fire({
+                        icon: "warning",
+                        title: "Invalid Email or Password",
+                    })
+                );
         },
     },
 };
