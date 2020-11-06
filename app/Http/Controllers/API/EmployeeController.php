@@ -44,7 +44,7 @@ class EmployeeController extends Controller
 
             $name = time() . "." . $ext;
             $image = Image::make($request->photo)->resize(240, 200);
-            $upload_path =  'images/employees/';
+            $upload_path ='images/employees/';
             $image_url = $upload_path . $name;
             $image->save($image_url);
 
@@ -113,6 +113,12 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        $employee = Employee::find($id);
+        $photo = $employee->photo;
+        if ($photo) {
+            unlink($photo);
+         }
+        Employee::destroy($id); 
     }
 }

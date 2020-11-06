@@ -40,7 +40,7 @@
                                                 </small>
                                             </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                                                <input v-model="form.salary" type="number" step="0.01" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Salary" />
+                                                <input v-model="form.salary" type="number" min="0" step="0.01" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Salary" />
                                                 <small class="text-danger" v-if="errors.salary">
                                                     {{ errors.salary[0] }}
                                                 </small>
@@ -82,7 +82,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                                                <img :src="form.photo" alt="photo" style="height: 40px; width: 40px" />
+                                                <img v-if="form.photo != null" :src="form.photo" alt="photo" style="height: 40px; width: 40px" />
                                             </div>
                                         </div>
                                     </div>
@@ -153,10 +153,9 @@ export default {
                 })
                 .catch((error) => {
                     this.errors = error.response.data.errors;
-                })
-                .catch(
                     Notification.error()
-                );
+                });
+                
         },
     },
 };

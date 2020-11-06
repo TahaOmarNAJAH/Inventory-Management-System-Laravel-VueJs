@@ -2346,7 +2346,8 @@ __webpack_require__.r(__webpack_exports__);
         Notification.success();
       })["catch"](function (error) {
         _this2.errors = error.response.data.errors;
-      })["catch"](Notification.error());
+        Notification.error();
+      });
     }
   }
 });
@@ -2389,12 +2390,94 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "index",
   created: function created() {
     if (!User.loggedIn()) {
       this.$router.push({
         name: "/"
+      });
+    }
+
+    this.getEmployees();
+  },
+  data: function data() {
+    return {
+      employees: [],
+      searchKeyword: ""
+    };
+  },
+  computed: {
+    filterSearch: function filterSearch() {
+      var _this = this;
+
+      return this.employees.filter(function (employee) {
+        return employee.name.match(_this.searchKeyword);
+      });
+    }
+  },
+  methods: {
+    getEmployees: function getEmployees() {
+      var _this2 = this;
+
+      axios.get("/api/employees/").then(function (response) {
+        _this2.employees = response.data;
+      })["catch"]();
+    },
+    deleteEmployee: function deleteEmployee(id) {
+      var _this3 = this;
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          axios["delete"]("/api/employees/".concat(id)).then(function () {
+            _this3.employees = _this3.employees.filter(function (employee) {
+              return employee.id != id;
+            });
+          })["catch"](function (error) {
+            console.log(error.response.data);
+            Notification.error();
+          });
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        }
       });
     }
   }
@@ -45657,6 +45740,7 @@ var render = function() {
                                 staticClass: "form-control",
                                 attrs: {
                                   type: "number",
+                                  min: "0",
                                   step: "0.01",
                                   id: "exampleInputEmail",
                                   "aria-describedby": "emailHelp",
@@ -45874,10 +45958,15 @@ var render = function() {
                                 "col-xl-6 col-lg-6 col-md-6 col-sm-12"
                             },
                             [
-                              _c("img", {
-                                staticStyle: { height: "40px", width: "40px" },
-                                attrs: { src: _vm.form.photo, alt: "photo" }
-                              })
+                              _vm.form.photo != null
+                                ? _c("img", {
+                                    staticStyle: {
+                                      height: "40px",
+                                      width: "40px"
+                                    },
+                                    attrs: { src: _vm.form.photo, alt: "photo" }
+                                  })
+                                : _vm._e()
                             ]
                           )
                         ])
@@ -45947,21 +46036,138 @@ var render = function() {
   return _c("div", [
     _c(
       "div",
-      { staticClass: "text-right" },
+      {
+        staticClass: "d-sm-flex align-items-center justify-content-between mb-4"
+      },
       [
+        _c("h1", { staticClass: "h3 mb-0 text-gray-800" }, [
+          _vm._v("All Employees")
+        ]),
+        _vm._v(" "),
         _c(
-          "router-link",
-          {
-            staticClass: "btn btn-primary",
-            attrs: { to: "/employees/create" }
-          },
-          [_vm._v("Add Employee")]
+          "div",
+          { staticClass: "text-right" },
+          [
+            _c(
+              "router-link",
+              {
+                staticClass: "btn btn-primary",
+                attrs: { to: "/employees/create" }
+              },
+              [_vm._v("Add Employee")]
+            )
+          ],
+          1
         )
-      ],
-      1
+      ]
     ),
     _vm._v(" "),
-    _vm._m(0)
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-lg-12 mb-4" }, [
+        _c("div", { staticClass: "card" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "card-header py-3 d-flex flex-row align-items-center justify-content-between"
+            },
+            [
+              _c("h6", { staticClass: "m-0 font-weight-bold text-primary" }, [
+                _vm._v("Employees List")
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.searchKeyword,
+                      expression: "searchKeyword"
+                    }
+                  ],
+                  staticClass: "form-control form-control-sm",
+                  attrs: { type: "search", placeholder: "Search" },
+                  domProps: { value: _vm.searchKeyword },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.searchKeyword = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "table-responsive" }, [
+            _c(
+              "table",
+              { staticClass: "table align-items-center table-flush" },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.filterSearch, function(employee) {
+                    return _c("tr", { key: employee.id }, [
+                      _c("td", [_vm._v(_vm._s(employee.name))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("img", {
+                          attrs: {
+                            src: "/" + employee.photo,
+                            alt: "",
+                            width: "50",
+                            height: "50"
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(employee.phone))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(employee.salary))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(employee.joining_date))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c(
+                          "button",
+                          { staticClass: "btn btn-sm btn-primary" },
+                          [_vm._v("edit")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-sm btn-danger",
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteEmployee(employee.id)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\r\n                                        delete\r\n                                    "
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-footer" })
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -45969,23 +46175,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-xl-12 col-lg-12 col-md-12" }, [
-        _c("div", { staticClass: "card shadow-sm my-5" }, [
-          _c("div", { staticClass: "card-body p-0" }, [
-            _c("div", { staticClass: "row" }, [
-              _c("div", { staticClass: "col-lg-12" }, [
-                _c("div", { staticClass: "login-form" }, [
-                  _c("div", { staticClass: "text-center" }, [
-                    _c("h1", { staticClass: "h4 text-gray-900 mb-4" }, [
-                      _vm._v("All Employees")
-                    ])
-                  ])
-                ])
-              ])
-            ])
-          ])
-        ])
+    return _c("thead", { staticClass: "thead-light" }, [
+      _c("tr", [
+        _c("th", [_vm._v("Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Email")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Phone")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Salary")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Joining Date")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Actions")])
       ])
     ])
   }
