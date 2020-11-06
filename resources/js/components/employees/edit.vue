@@ -11,9 +11,9 @@
                         <div class="col-lg-12">
                             <div class="login-form">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Add Employee</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Edit Employee</h1>
                                 </div>
-                                <form @submit.prevent="createEmployee" enctype="multipart/form-data">
+                                <form @submit.prevent="updateEmployee" enctype="multipart/form-data">
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
@@ -78,7 +78,6 @@
                                                 <div class="custom-file">
                                                     <input @change="onImageSelected" type="file" class="custom-file-input" id="customFile" />
                                                     <label class="custom-file-label" for="customFile">Choose file</label>
-
                                                 </div>
                                             </div>
                                             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
@@ -89,7 +88,7 @@
 
                                     <div class="form-group">
                                         <button type="submit" class="btn btn-primary btn-block">
-                                            Submit
+                                            Update
                                         </button>
                                     </div>
                                 </form>
@@ -105,25 +104,39 @@
 
 <script>
 export default {
-    name: "CreateEmployee",
+    name: "EditEmployee",
     created() {
         if (!User.loggedIn()) {
             this.$router.push({
                 name: "/",
             });
         }
+
+        let employeeId = this.$route.params.id;
+        axios
+            .get(`/api/employees/${employeeId}`)
+            .then(({
+                data
+            }) => {
+                this.form = data;
+            })
+            .catch((error) => {
+                this.errors = error.response.data.errors;
+                Notification.error();
+            });
     },
     data() {
         return {
             form: {
-                name: null,
-                email: null,
-                salary: null,
-                address: null,
-                nid: null,
-                joining_date: null,
-                phone: null,
-                photo: null,
+                name: '',
+                email: '',
+                salary: '',
+                address: '',
+                nid: '',
+                joining_date: '',
+                phone: '',
+                photo: '',
+                newphoto: '',
             },
             errors: {},
         };
@@ -136,26 +149,21 @@ export default {
             } else {
                 let reader = new FileReader();
                 reader.onload = (event) => {
-                    this.form.photo = event.target.result;
-                    console.log(event.target.result);
+                    this.form.newphoto = event.target.result;
                 };
                 reader.readAsDataURL(file);
             }
         },
-        createEmployee() {
-            axios
-                .post("/api/employees", this.form)
-                .then((response) => {
+        updateEmployee() {
+            let id = this.$route.params.id
+            axios.patch('/api/employees/' + id, this.form)
+                .then(() => {
                     this.$router.push({
-                        name: "all-employees"
-                    });
-                    Notification.success();
+                        name: 'all-employees'
+                    })
+                    Notification.success()
                 })
-                .catch((error) => {
-                    this.errors = error.response.data.errors;
-                    Notification.error()
-                });
-                
+                .catch(error => this.errors = error.response.data.errors)
         },
     },
 };

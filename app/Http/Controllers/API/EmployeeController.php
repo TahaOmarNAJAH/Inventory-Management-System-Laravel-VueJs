@@ -44,7 +44,7 @@ class EmployeeController extends Controller
 
             $name = time() . "." . $ext;
             $image = Image::make($request->photo)->resize(240, 200);
-            $upload_path ='images/employees/';
+            $upload_path = 'images/employees/';
             $image_url = $upload_path . $name;
             $image->save($image_url);
 
@@ -79,7 +79,8 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        //
+        $employee = Employee::find($id);
+        return response()->json($employee);
     }
 
     /**
@@ -89,9 +90,7 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {
-        //
-    }
+    { }
 
     /**
      * Update the specified resource in storage.
@@ -102,7 +101,48 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validateData = $request->validate([
+            'name' => 'required | string | max:255',
+            'email' => 'required | string | email | max:255',
+            'salary' => 'required| not_in:0 |numeric ',
+            'phone' => 'required| min:10 ',
+            'joining_date' => 'required',
+            'address' => 'required',
+        ]);
+
+        $employee = Employee::find($id);
+        $employee->name = $request->name;
+        $employee->email = $request->email;
+        $employee->salary = $request->salary;
+        $employee->phone = $request->phone;
+        $employee->address = $request->address;
+        $employee->nid = $request->nid;
+        $employee->joining_date = $request->joining_date;
+        $image = $request->newphoto;
+
+        if ($image) {
+            $position = strpos($image, ';');
+            $sub = substr($image, 0, $position);
+            $ext = explode('/', $sub)[1];
+            $name = time() . "." . $ext;
+            $image = Image::make($image)->resize(240, 200);
+            $upload_path = 'images/employees/';
+            $image_url = $upload_path . $name;
+            $success = $image->save($image_url);
+
+            if ($success) {
+                $employee->photo = $image_url;
+                $emp = Employee::find($id);
+                $image_path = $emp->photo;
+                $done = unlink($image_path);
+                $employee->save();
+            }
+        }else{
+            $employee->photo = $request->photo;
+            $employee->save();
+        }
+
+       
     }
 
     /**
@@ -113,12 +153,12 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        
+
         $employee = Employee::find($id);
         $photo = $employee->photo;
         if ($photo) {
             unlink($photo);
-         }
-        Employee::destroy($id); 
+        }
+        Employee::destroy($id);
     }
 }
