@@ -58,8 +58,8 @@
                         <div id="collapseBootstrap1" class="collapse" aria-labelledby="collapseBootstrap1" data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
                                 <h6 class="collapse-header">Suppliers</h6>
-                                <router-link to="" class="collapse-item">All Suppliers</router-link>
-                                <router-link to="" class="collapse-item">Add Supplier</router-link>
+                                <router-link to="/suppliers/index" class="collapse-item">All Suppliers</router-link>
+                                <router-link to="/suppliers/create" class="collapse-item">Add Supplier</router-link>
                             </div>
                         </div>
                     </li>

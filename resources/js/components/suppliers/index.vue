@@ -1,9 +1,9 @@
 <template>
 <div>
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">All Employees</h1>
+        <h1 class="h3 mb-0 text-gray-800">All Suppliers</h1>
         <div class="text-right">
-            <router-link to="/employees/create" class="btn btn-primary">Add Employee</router-link>
+            <router-link to="/suppliers/create" class="btn btn-primary">Add Supplier</router-link>
         </div>
     </div>
 
@@ -12,7 +12,7 @@
             <!-- Simple Tables -->
             <div class="card">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Employees List</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Suppliers List</h6>
                     <div>
                         <input v-model="searchKeyword" class="form-control form-control-sm" type="search" placeholder="Search" />
                     </div>
@@ -24,23 +24,23 @@
                                 <th>Name</th>
                                 <th>Photo</th>
                                 <th>Phone</th>
-                                <th>Salary</th>
-                                <th>Joining Date</th>
+                                <th>Email</th>
+                                <th>Shop Name</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="employee in filterSearch" :key="employee.id">
-                                <td>{{ employee.name }}</td>
+                            <tr v-for="supplier in filterSearch" :key="supplier.id">
+                                <td>{{ supplier.name }}</td>
                                 <td>
-                                    <img :src="'/'+employee.photo" alt="" width="50" height="50" />
+                                    <img :src="'/'+supplier.photo" alt="" width="50" height="50" />
                                 </td>
-                                <td>{{ employee.phone }}</td>
-                                <td>{{ employee.salary }}</td>
-                                <td>{{ employee.joining_date }}</td>
+                                <td>{{ supplier.phone }}</td>
+                                <td>{{ supplier.email }}</td>
+                                <td>{{ supplier.shopname }}</td>
                                 <td>
-                                    <router-link :to="{ name: 'edit-employee', params:{id:employee.id} }" class="btn btn-sm btn-primary">edit</router-link>
-                                    <button @click="deleteEmployee(employee.id)" class="btn btn-sm btn-danger">
+                                    <router-link :to="{ name: 'edit-supplier', params:{id:supplier.id} }" class="btn btn-sm btn-primary">edit</router-link>
+                                    <button @click="deleteSupplier(supplier.id)" class="btn btn-sm btn-danger">
                                         delete
                                     </button>
                                 </td>
@@ -58,38 +58,38 @@
 
 <script>
 export default {
-    name: "Employees",
+    name: 'Suppliers',
     created() {
         if (!User.loggedIn()) {
             this.$router.push({
                 name: "/",
             });
         }
-        this.getEmployees();
+        this.getSuppliers();
     },
     data() {
         return {
-            employees: [],
+            suppliers: [],
             searchKeyword: "",
         };
     },
     computed: {
         filterSearch() {
-            return this.employees.filter((employee) => {
-                return employee.name.match(this.searchKeyword);
+            return this.suppliers.filter((supplier) => {
+                return supplier.name.match(this.searchKeyword);
             });
         },
     },
     methods: {
-        getEmployees() {
+        getSuppliers() {
             axios
-                .get("/api/employees/")
+                .get("/api/suppliers/")
                 .then((response) => {
-                    this.employees = response.data;
+                    this.suppliers = response.data;
                 })
                 .catch();
         },
-        deleteEmployee(id) {
+        deleteSupplier(id) {
             Swal.fire({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
@@ -101,10 +101,10 @@ export default {
             }).then((result) => {
                 if (result.isConfirmed) {
                     axios
-                        .delete(`/api/employees/${id}`)
+                        .delete(`/api/suppliers/${id}`)
                         .then(() => {
-                            this.employees = this.employees.filter((employee) => {
-                                return employee.id != id;
+                            this.suppliers = this.suppliers.filter((supplier) => {
+                                return supplier.id != id;
                             });
                         })
                         .catch((error) => {
@@ -116,8 +116,9 @@ export default {
             });
         },
     },
-};
+}
 </script>
 
 <style scoped>
+
 </style>

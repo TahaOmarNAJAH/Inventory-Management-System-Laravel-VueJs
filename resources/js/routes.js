@@ -12,6 +12,10 @@ import Employees from './components/employees/index';
 import CreateEmployee from './components/employees/create';
 import EditEmployee from './components/employees/edit';
 
+import Suppliers from './components/suppliers/index';
+import CreateSupplier from './components/suppliers/create';
+import EditSupplier from './components/suppliers/edit';
+
 
 Vue.use(VueRouter);
 
@@ -28,5 +32,9 @@ export default new VueRouter({
         { path: '/employees/index', name: 'all-employees', component: Employees },
         { path: '/employees/create', name: 'create-employee', component: CreateEmployee },
         { path: '/employees/edit/:id', name: 'edit-employee', component: EditEmployee },
+        // Suppliers routes
+        { path: '/suppliers/index', name: 'all-suppliers', component: Suppliers },
+        { path: '/suppliers/create', name: 'create-supplier', component: CreateSupplier },
+        { path: '/suppliers/edit/:id', name: 'edit-supplier', component: EditSupplier },
     ]
 });
