@@ -16,6 +16,10 @@ import Suppliers from './components/suppliers/index';
 import CreateSupplier from './components/suppliers/create';
 import EditSupplier from './components/suppliers/edit';
 
+import Categories from './components/categories/index';
+import CreateCategory from './components/categories/create';
+import EditCategory from './components/categories/edit';
+
 
 Vue.use(VueRouter);
 
@@ -36,5 +40,9 @@ export default new VueRouter({
         { path: '/suppliers/index', name: 'all-suppliers', component: Suppliers },
         { path: '/suppliers/create', name: 'create-supplier', component: CreateSupplier },
         { path: '/suppliers/edit/:id', name: 'edit-supplier', component: EditSupplier },
+        // Categories routes
+        { path: '/categories/index', name: 'all-categories', component: Categories },
+        { path: '/categories/create', name: 'create-category', component: CreateCategory },
+        { path: '/categories/edit/:id', name: 'edit-category', component: EditCategory },
     ]
 });
