@@ -91,6 +91,20 @@
                             </div>
                         </div>
                     </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap4" aria-expanded="true" aria-controls="collapseBootstrap1">
+                            <i class="far fa-fw fa-window-maximize"></i>
+                            <span>Expenses</span>
+                        </a>
+                        <div id="collapseBootstrap4" class="collapse" aria-labelledby="collapseBootstrap4" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                <h6 class="collapse-header">Expenses</h6>
+                                <router-link to="/expenses/index" class="collapse-item">All Expenses</router-link>
+                                <router-link to="/expenses/create" class="collapse-item">Add Expense</router-link>
+                            </div>
+                        </div>
+                    </li>
                    
                           
                     <hr class="sidebar-divider">
@@ -307,17 +321,15 @@
                 </div>
 
                 <!-- Footer -->
-                <!-- <footer class="sticky-footer bg-white">
+                <footer class="sticky-footer bg-white">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
-                            <span>copyright &copy; <script>
-                                    document.write(new Date().getFullYear());
-                                </script> - developed by
+                            <span>copyright &copy; 2020 - developed by
                                 <b><a href="https://indrijunanda.gitlab.io/" target="_blank">indrijunanda</a></b>
                             </span>
                         </div>
                     </div>
-                </footer> -->
+                </footer>
                 <!-- Footer -->
 
             </div>

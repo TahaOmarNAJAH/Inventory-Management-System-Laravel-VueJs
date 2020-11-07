@@ -1,7 +1,7 @@
 <template>
 <div>
     <div class="text-right">
-        <router-link to="/categories/index" class="btn btn-primary">All Categories</router-link>
+        <router-link to="/expenses/index" class="btn btn-primary">All Expenses</router-link>
     </div>
     <div class="row justify-content-center">
         <div class="col-xl-12 col-lg-12 col-md-12">
@@ -11,15 +11,27 @@
                         <div class="col-lg-12">
                             <div class="login-form">
                                 <div class="text-center">
-                                    <h1 class="h4 text-gray-900 mb-4">Edit Category</h1>
+                                    <h1 class="h4 text-gray-900 mb-4">Edit Expense</h1>
                                 </div>
-                                <form @submit.prevent="updateCategory" enctype="multipart/form-data">
+                                <form @submit.prevent="updateExpense" enctype="multipart/form-data">
+                                     <div class="form-group">
+                                        <div class="form-row">
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                                <label for="details">Expense Details</label>
+                                                <textarea class="form-control" v-model="form.details" id="details" rows="4"/>
+                                                <small class="text-danger" v-if="errors.details">
+                                                    {{ errors.details[0] }}
+                                                </small>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <div class="form-row">
                                             <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-                                                <input v-model="form.name" type="text" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Category Name" />
-                                                <small class="text-danger" v-if="errors.name">
-                                                    {{ errors.name[0] }}
+                                                <label for="amountInput">Expense Amount</label>
+                                                <input v-model="form.amount" type="number" min="0" class="form-control" id="amountInput" placeholder="Enter Expense Amount" />
+                                                <small class="text-danger" v-if="errors.amount">
+                                                    {{ errors.amount[0] }}
                                                 </small>
                                             </div>
                                         </div>
@@ -43,17 +55,29 @@
 
 <script>
 export default {
-    name: 'EditCategory',
+    name: 'EditExpense',
     created() {
         if (!User.loggedIn()) {
             this.$router.push({
                 name: "/",
             });
         }
-
-        let categoryId = this.$route.params.id;
+        this.getExpense();
+    },
+    data() {
+        return {
+            form: {
+                details: '',
+                amount: '',
+            },
+            errors: {},
+        };
+    },
+    methods: {
+        getExpense(){
+        let expenseId = this.$route.params.id;
         axios
-            .get(`/api/categories/${categoryId}`)
+            .get(`/api/expenses/${expenseId}`)
             .then(({
                 data
             }) => {
@@ -63,23 +87,13 @@ export default {
                 this.errors = error.response.data.errors;
                 Notification.error();
             });
-    },
-    data() {
-        return {
-            form: {
-                name: '',
-            },
-            errors: {},
-        };
-    },
-    methods: {
-
-        updateCategory() {
+        },
+        updateExpense() {
             let id = this.$route.params.id
-            axios.patch('/api/categories/' + id, this.form)
+            axios.patch('/api/expenses/' + id, this.form)
                 .then(() => {
                     this.$router.push({
-                        name: 'all-categories'
+                        name: 'all-expenses'
                     })
                     Notification.success()
                 })

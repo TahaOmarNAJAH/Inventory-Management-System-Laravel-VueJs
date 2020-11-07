@@ -24,6 +24,10 @@ import Products from './components/products/index';
 import CreateProduct from './components/products/create';
 import EditProduct from './components/products/edit';
 
+import Expenses from './components/expenses/index';
+import CreateExpense from './components/expenses/create';
+import EditExpense from './components/expenses/edit';
+
 
 Vue.use(VueRouter);
 
@@ -52,5 +56,9 @@ export default new VueRouter({
         { path: '/products/index', name: 'all-products', component: Products },
         { path: '/products/create', name: 'create-product', component: CreateProduct },
         { path: '/products/edit/:id', name: 'edit-product', component: EditProduct },
+        // Expenses routes
+        { path: '/expenses/index', name: 'all-expenses', component: Expenses },
+        { path: '/expenses/create', name: 'create-expense', component: CreateExpense },
+        { path: '/expenses/edit/:id', name: 'edit-expense', component: EditExpense },
     ]
 });
