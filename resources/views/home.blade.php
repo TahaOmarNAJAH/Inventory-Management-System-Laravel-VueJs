@@ -77,26 +77,22 @@
                             </div>
                         </div>
                     </li>
-                   
+                    
                     <li class="nav-item">
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true" aria-controls="collapseTable">
-                            <i class="fas fa-fw fa-table"></i>
-                            <span>Tables</span>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap3" aria-expanded="true" aria-controls="collapseBootstrap1">
+                            <i class="far fa-fw fa-window-maximize"></i>
+                            <span>Products</span>
                         </a>
-                        <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+                        <div id="collapseBootstrap3" class="collapse" aria-labelledby="collapseBootstrap3" data-parent="#accordionSidebar">
                             <div class="bg-white py-2 collapse-inner rounded">
-                                <h6 class="collapse-header">Tables</h6>
-                                <a class="collapse-item" href="simple-tables.html">Simple Tables</a>
-                                <a class="collapse-item" href="datatables.html">DataTables</a>
+                                <h6 class="collapse-header">Products</h6>
+                                <router-link to="/products/index" class="collapse-item">All Products</router-link>
+                                <router-link to="/products/create" class="collapse-item">Add Product</router-link>
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="ui-colors.html">
-                            <i class="fas fa-fw fa-palette"></i>
-                            <span>UI Colors</span>
-                        </a>
-                    </li>
+                   
+                          
                     <hr class="sidebar-divider">
                     <div class="sidebar-heading">
                         Examples

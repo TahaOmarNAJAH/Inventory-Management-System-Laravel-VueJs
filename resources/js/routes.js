@@ -20,6 +20,10 @@ import Categories from './components/categories/index';
 import CreateCategory from './components/categories/create';
 import EditCategory from './components/categories/edit';
 
+import Products from './components/products/index';
+import CreateProduct from './components/products/create';
+import EditProduct from './components/products/edit';
+
 
 Vue.use(VueRouter);
 
@@ -44,5 +48,9 @@ export default new VueRouter({
         { path: '/categories/index', name: 'all-categories', component: Categories },
         { path: '/categories/create', name: 'create-category', component: CreateCategory },
         { path: '/categories/edit/:id', name: 'edit-category', component: EditCategory },
+        // Products routes
+        { path: '/products/index', name: 'all-products', component: Products },
+        { path: '/products/create', name: 'create-product', component: CreateProduct },
+        { path: '/products/edit/:id', name: 'edit-product', component: EditProduct },
     ]
 });
