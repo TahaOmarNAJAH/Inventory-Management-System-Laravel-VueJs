@@ -28,7 +28,6 @@ import Stock from './components/products/stock/index';
 import EditStock from './components/products/stock/edit';
 
 
-
 import Expenses from './components/expenses/index';
 import CreateExpense from './components/expenses/create';
 import EditExpense from './components/expenses/edit';
@@ -39,6 +38,9 @@ import Salaries from './components/salaries/index';
 import EditSalary from './components/salaries/edit';
 import ViewSalary from './components/salaries/view';
 
+import Customers from './components/customers/index';
+import CreateCustomer from './components/customers/create';
+import EditCustomer from './components/customers/edit';
 
 Vue.use(VueRouter);
 
@@ -74,14 +76,18 @@ export default new VueRouter({
         // Sallaries routes
         { path: '/given-salary', name: 'given-salary', component: Salary },
         { path: '/pay-salary/:id', name: 'pay-salary', component: PaySalary },
-        
+
         { path: '/salaries/index', name: 'all-salaries', component: Salaries },
         { path: '/salaries/show/:id', name: 'view-salary', component: ViewSalary },
         { path: '/salaries/edit/:id', name: 'edit-salary', component: EditSalary },
-        
+
         { path: '/stock/index', name: 'stock', component: Stock },
         { path: '/stock/edit/:id', name: 'edit-stock', component: EditStock },
+        // Customers routes
+        { path: '/customers/index', name: 'all-customers', component: Customers },
+        { path: '/customers/create', name: 'create-customer', component: CreateCustomer },
+        { path: '/customers/edit/:id', name: 'edit-customer', component: EditCustomer },
 
-        
+
     ]
 });

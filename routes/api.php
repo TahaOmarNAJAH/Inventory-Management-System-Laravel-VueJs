@@ -23,6 +23,7 @@ Route::apiResource('/suppliers','API\SupplierController');
 Route::apiResource('/categories','API\CategoryController');
 Route::apiResource('/products','API\ProductController');
 Route::apiResource('/expenses','API\ExpenseController');
+Route::apiResource('/customers','API\CustomerController');
 
 Route::post('/stock/update/{id}','API\ProductController@updateStock');
 
