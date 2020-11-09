@@ -28,6 +28,12 @@ import Expenses from './components/expenses/index';
 import CreateExpense from './components/expenses/create';
 import EditExpense from './components/expenses/edit';
 
+import Salary from './components/salaries/all_employee';
+import PaySalary from './components/salaries/create';
+import Salaries from './components/salaries/index';
+import EditSalary from './components/salaries/edit';
+import ViewSalary from './components/salaries/view';
+
 
 Vue.use(VueRouter);
 
@@ -60,5 +66,13 @@ export default new VueRouter({
         { path: '/expenses/index', name: 'all-expenses', component: Expenses },
         { path: '/expenses/create', name: 'create-expense', component: CreateExpense },
         { path: '/expenses/edit/:id', name: 'edit-expense', component: EditExpense },
+        // Sallaries routes
+        { path: '/given-salary', name: 'given-salary', component: Salary },
+        { path: '/pay-salary/:id', name: 'pay-salary', component: PaySalary },
+        
+        { path: '/salaries/index', name: 'all-salaries', component: Salaries },
+        { path: '/salaries/show/:id', name: 'view-salary', component: ViewSalary },
+        { path: '/salaries/edit/:id', name: 'edit-salary', component: EditSalary },
+
     ]
 });

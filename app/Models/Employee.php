@@ -9,4 +9,8 @@ class Employee extends Model
     protected $fillable = [
         'name', 'email', 'address','phone','photo','nid','salary','joining_date',
     ];
+
+    public function sallery(){
+        return $this->belongsTo(Salary::class);
+    }
 }
