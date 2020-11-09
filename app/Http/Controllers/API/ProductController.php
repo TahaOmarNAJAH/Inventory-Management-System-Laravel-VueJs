@@ -118,7 +118,7 @@ class ProductController extends Controller
             'name' => 'required | string | max:255',
             'category_id' => 'required',
             'selling_price' => 'required| not_in:0 |numeric ',
-            'product_quantity' => 'required| not_in:0 |numeric ',
+            'product_quantity' => 'required',
         ]);
         
         $product = Product::find($id);
@@ -170,5 +170,15 @@ class ProductController extends Controller
             unlink($photo);
         }
         Product::destroy($id);
+    }
+
+    public function updateStock(Request $request,$id){
+        $validateData = $request->validate([
+            'product_quantity' => 'required',
+        ]);
+
+        $product = Product::find($id);
+        $product->product_quantity = $request->product_quantity;
+        $product->save();
     }
 }

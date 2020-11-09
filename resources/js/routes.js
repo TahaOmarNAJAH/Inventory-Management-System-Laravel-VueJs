@@ -24,6 +24,11 @@ import Products from './components/products/index';
 import CreateProduct from './components/products/create';
 import EditProduct from './components/products/edit';
 
+import Stock from './components/products/stock/index';
+import EditStock from './components/products/stock/edit';
+
+
+
 import Expenses from './components/expenses/index';
 import CreateExpense from './components/expenses/create';
 import EditExpense from './components/expenses/edit';
@@ -73,6 +78,10 @@ export default new VueRouter({
         { path: '/salaries/index', name: 'all-salaries', component: Salaries },
         { path: '/salaries/show/:id', name: 'view-salary', component: ViewSalary },
         { path: '/salaries/edit/:id', name: 'edit-salary', component: EditSalary },
+        
+        { path: '/stock/index', name: 'stock', component: Stock },
+        { path: '/stock/edit/:id', name: 'edit-stock', component: EditStock },
 
+        
     ]
 });

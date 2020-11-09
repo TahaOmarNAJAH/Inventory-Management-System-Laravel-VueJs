@@ -119,7 +119,13 @@
                             </div>
                         </div>
                     </li>
-                   
+
+                    <li class="nav-item">
+                        <router-link to="/stock/index" class="nav-link">
+                            <i class="fas fa-fw fa-chart-area"></i>
+                            <span>Stock</span>
+                        </router-link>
+                    </li>
                           
                     <hr class="sidebar-divider">
                     <div class="sidebar-heading">

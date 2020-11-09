@@ -24,6 +24,8 @@ Route::apiResource('/categories','API\CategoryController');
 Route::apiResource('/products','API\ProductController');
 Route::apiResource('/expenses','API\ExpenseController');
 
+Route::post('/stock/update/{id}','API\ProductController@updateStock');
+
 Route::get('/salaries','API\SalaryController@index');
 Route::post('/salay/pay/{id}','API\SalaryController@pay');
 Route::get('/salaries/{month}','API\SalaryController@salariesByMonth');
