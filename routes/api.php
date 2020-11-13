@@ -33,3 +33,16 @@ Route::get('/salaries/{month}','API\SalaryController@salariesByMonth');
 Route::get('/edit/salary/{id}','API\SalaryController@edit');
 Route::post('/salary/update/{id}','API\SalaryController@SalaryUpdate');
 
+Route::get('/products/category/{id}','API\PosController@getProductsByCategory');
+
+Route::get('/orders','API\OrderController@allOrders');
+Route::post('/order/save','API\OrderController@saveOrder');
+
+Route::get('/addToCart/{id}','API\CartController@addToCart');
+Route::get('/cart/products','API\CartController@getCartProducts');
+Route::get('/cart/increment/{id}','API\CartController@incrementQty');
+Route::get('/cart/decrement/{id}','API\CartController@decrementQty');
+Route::get('/cart/delete/{id}','API\CartController@removeItem');
+Route::get('/vats','API\CartController@vats');
+
+

@@ -23,4 +23,8 @@ class Product extends Model
     public function supplier(){
         return $this->belongsTo(Supplier::class);
     }
+
+    public function pos(){
+        return $this->hasMany(Pos::class);
+    }
 }

@@ -42,6 +42,9 @@ import Customers from './components/customers/index';
 import CreateCustomer from './components/customers/create';
 import EditCustomer from './components/customers/edit';
 
+import POS from './components/pos/point_of_sale';
+import Orders from './components/orders/index';
+
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -87,7 +90,9 @@ export default new VueRouter({
         { path: '/customers/index', name: 'all-customers', component: Customers },
         { path: '/customers/create', name: 'create-customer', component: CreateCustomer },
         { path: '/customers/edit/:id', name: 'edit-customer', component: EditCustomer },
-
+        // Point Of Sale Routes
+        { path: '/pos', name: 'pos', component: POS },
+        { path: '/orders', name: 'orders', component: Orders },
 
     ]
 });

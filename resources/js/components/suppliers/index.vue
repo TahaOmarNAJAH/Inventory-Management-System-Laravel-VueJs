@@ -33,7 +33,7 @@
                             <tr v-for="supplier in filterSearch" :key="supplier.id">
                                 <td>{{ supplier.name }}</td>
                                 <td>
-                                    <img :src="'/'+supplier.photo" alt="" width="50" height="50" />
+                                    <img :src="supplier.photo" alt="" width="50" height="50" />
                                 </td>
                                 <td>{{ supplier.phone }}</td>
                                 <td>{{ supplier.email }}</td>
@@ -76,7 +76,7 @@ export default {
     computed: {
         filterSearch() {
             return this.suppliers.filter((supplier) => {
-                return supplier.name.match(this.searchKeyword);
+                return (supplier.name.toLowerCase()).match(this.searchKeyword.toLowerCase());
             });
         },
     },

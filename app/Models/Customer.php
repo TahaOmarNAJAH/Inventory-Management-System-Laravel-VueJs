@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    //
+    public function pos(){
+        return $this->hasMany(Pos::class);
+    }
 }

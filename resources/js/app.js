@@ -2,7 +2,7 @@ import router from './routes';
 import User from './Helpers/User';
 import Swal from 'sweetalert2';
 import Notification from './Helpers/Notification';
-
+import TopBar from './components/topbar';
 require('./bootstrap');
 
 window.Vue = require('vue');
@@ -28,8 +28,12 @@ const Toast = Swal.mixin({
 
 window.Toast = Toast;
 //end sweet alert  
+window.Reload = new Vue();
 
 const app = new Vue({
     el: '#app',
+    components: {
+        TopBar
+    },
     router
 });
